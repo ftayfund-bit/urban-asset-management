@@ -171,17 +171,21 @@
 
         .team-photo {
             width: 100%;
-            padding: 20px;
+            height: 300px;
             background: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 30px;
         }
         
         .team-photo img {
-            max-width: 150px;
+            max-width: 200px;
+            max-height: 250px;
             width: auto;
+            height: auto;
             display: block;
+            object-fit: contain;
         }
 
         .team-photo::after {
