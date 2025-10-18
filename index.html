@@ -5,172 +5,925 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urban Asset Management - The Bulwark Bremen</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: #2c3e50; color: white; padding: 1rem 0; }
-        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        h2 { color: #2c3e50; margin: 2rem 0 1rem; }
-        h3 { color: #34495e; margin: 1.5rem 0 0.5rem; }
-        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; text-align: center; }
-        .stats { display: flex; justify-content: space-around; margin: 3rem 0; }
-        .stat { text-align: center; }
-        .stat-number { font-size: 2rem; font-weight: bold; color: #3498db; }
-        .section { margin: 3rem 0; }
-        .team { display: flex; gap: 2rem; margin: 2rem 0; }
-        .team-member { text-align: center; flex: 1; }
-        .team-photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 0 auto; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .contact { background: #f8f9fa; padding: 2rem; border-radius: 8px; }
-        .footer { background: #2c3e50; color: white; text-align: center; padding: 1rem; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #C19A6B;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%232C3E50" width="1200" height="800"/><text x="50%" y="50%" text-anchor="middle" fill="%23ffffff" font-family="Georgia" font-size="120" opacity="0.1">UAM</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #C19A6B;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .section-intro {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Property Overview */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .property-card {
+            background: #fafafa;
+            padding: 2.5rem;
+            border-radius: 2px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Team Card Styling */
+        .team-card {
+            background: #fafafa;
+            padding: 0;
+            border-radius: 2px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #C19A6B;
+            font-size: 4rem;
+            font-weight: 300;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+        }
+
+        .team-info {
+            padding: 2.5rem;
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .property-card h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .property-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .stat {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #C19A6B;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Investment Highlights */
+        .highlights {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .highlights h2 {
+            color: white;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .highlight-item {
+            text-align: center;
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #C19A6B;
+        }
+
+        .highlight-item h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-item p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        /* Financial Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table th {
+            background: #fafafa;
+            font-weight: 400;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            color: #666;
+        }
+
+        .data-table tr:hover {
+            background: #fafafa;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 15px;
+            height: 15px;
+            background: #C19A6B;
+            border-radius: 50%;
+            margin-right: 2rem;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Velorin Model Section */
+        #velorin-model {
+            background: #fafafa;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #1a1a1a;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            background: #C19A6B;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: #C19A6B;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #C19A6B;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>URBAN ASSET MANAGEMENT</h1>
-            <p>REAL ESTATE DEVELOPMENT & ASSET MANAGEMENT</p>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span>URBAN ASSET MANAGEMENT</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#overview">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#bulwark-details">The Bulwark</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
     <section class="hero">
-        <div class="container">
-            <h2>Urban Asset Management</h2>
+        <div class="hero-content">
+            <div class="hero-subtitle">Real Estate Development & Asset Management</div>
+            <h1>Urban Asset Management</h1>
             <p>Transforming urban spaces into vibrant communities across Germany</p>
         </div>
     </section>
 
-    <main class="container">
-        <section class="section">
+    <section id="overview">
+        <div class="section-container">
             <h2>Our Mission</h2>
-            <p>Urban Asset Management specializes in identifying and transforming underutilized urban properties into thriving residential and mixed-use developments. We focus on historic city centers where heritage meets modern living, creating sustainable value for communities and investors.</p>
-            
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">3</div>
-                    <p>ACTIVE DEVELOPMENTS<br>Building a diversified portfolio of residential developments across German cities.</p>
+            <p class="section-intro">
+                Urban Asset Management specializes in identifying and transforming underutilized urban 
+                properties into thriving residential and mixed-use developments. We focus on historic city 
+                centers where heritage meets modern living, creating sustainable value for communities and investors.
+            </p>
+
+            <div class="property-grid">
+                <div class="property-card">
+                    <div class="stat">3</div>
+                    <div class="stat-label">Active Developments</div>
+                    <p>Building a diversified portfolio of residential developments across German cities.</p>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">400+</div>
-                    <p>RESIDENTIAL UNITS<br>Creating modern living spaces that meet the needs of today's urban residents.</p>
+
+                <div class="property-card">
+                    <div class="stat">400+</div>
+                    <div class="stat-label">Residential Units</div>
+                    <p>Creating modern living spaces that meet the needs of today's urban residents.</p>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">Premium</div>
-                    <p>URBAN LOCATIONS<br>Historic city centers with strong fundamentals and growth potential.</p>
+
+                <div class="property-card">
+                    <div class="stat">Premium</div>
+                    <div class="stat-label">Urban Locations</div>
+                    <p>Historic city centers with strong fundamentals and growth potential.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section">
+    <section id="portfolio">
+        <div class="section-container">
             <h2>Featured Project: The Bulwark</h2>
-            <p>Our flagship development in Bremen's UNESCO World Heritage old town represents the UAM approach: identifying exceptional locations with conversion potential and transforming them into premium residential communities.</p>
-            
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">Premium</div>
-                    <p>DEVELOPMENT SCALE<br>Comprehensive conversion project in Bremen's historic center with modern amenities.</p>
+            <p class="section-intro">
+                Our flagship development in Bremen's UNESCO World Heritage old town represents the 
+                UAM approach: identifying exceptional locations with conversion potential and transforming 
+                them into premium residential communities.
+            </p>
+
+            <div class="property-grid">
+                <div class="property-card">
+                    <div class="stat">Premium</div>
+                    <div class="stat-label">Development Scale</div>
+                    <p>Comprehensive conversion project in Bremen's historic center with modern amenities.</p>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">Modern</div>
-                    <p>RESIDENTIAL LIVING<br>Contemporary apartments designed for urban professionals and families.</p>
+
+                <div class="property-card">
+                    <div class="stat">Modern</div>
+                    <div class="stat-label">Residential Living</div>
+                    <p>Contemporary apartments designed for urban professionals and families.</p>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">Full Service</div>
-                    <p>AMENITIES<br>Complete infrastructure including underground parking and modern facilities.</p>
+
+                <div class="property-card">
+                    <div class="stat">Full Service</div>
+                    <div class="stat-label">Amenities</div>
+                    <p>Complete infrastructure including underground parking and modern facilities.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section">
+    <section id="approach" class="highlights">
+        <div class="section-container">
+            <h2>Our Development Model</h2>
+            
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🎯</div>
+                    <h3>Strategic Selection</h3>
+                    <p>We identify historic urban centers with undersupply, strong demographics, and conversion potential.</p>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-icon">🏗️</div>
+                    <h3>Value Creation</h3>
+                    <p>Through strategic repositioning and quality development, we unlock significant value appreciation.</p>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-icon">🌱</div>
+                    <h3>Sustainable Impact</h3>
+                    <p>Revitalizing historic buildings preserves urban heritage while meeting modern living standards.</p>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-icon">🤝</div>
+                    <h3>Institutional Exit</h3>
+                    <p>Stabilized assets are acquired by institutional yield funds, providing liquidity and enabling new developments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="velorin-model">
+        <div class="section-container">
+            <h2>Development Process</h2>
+            <p class="section-intro">
+                Urban Asset Management specializes in transforming underutilized urban properties into 
+                premium residential communities. Our proven process creates value through strategic 
+                development, professional management, and institutional-quality execution.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Phase 1: Acquisition & Planning</h3>
+                        <p>Identifying undervalued urban properties with conversion or development potential in prime German locations.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Phase 2: Development & Construction</h3>
+                        <p>Transforming properties into premium residential communities with modern amenities and sustainable design.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Phase 3: Lease-Up & Stabilization</h3>
+                        <p>Professional marketing and tenant acquisition achieving strong occupancy with quality tenant mix.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Phase 4: Institutional Exit</h3>
+                        <p>Stabilized assets sold to institutional investors and yield funds, realizing development profits.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Phase 5: Capital Recycling</h3>
+                        <p>Proceeds reinvested in new developments, creating a continuous pipeline of premium properties.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-grid" style="margin-top: 4rem;">
+                <div class="property-card">
+                    <h3>Our Focus</h3>
+                    <p style="margin-bottom: 1rem;"><strong>Development Approach:</strong></p>
+                    <p>Historic urban centers<br>
+                    Residential conversions<br>
+                    Mixed-use opportunities</p>
+                </div>
+
+                <div class="property-card">
+                    <h3>Track Record</h3>
+                    <p style="margin-bottom: 1rem;"><strong>Proven Expertise:</strong></p>
+                    <p>Premium locations<br>
+                    Quality execution<br>
+                    Sustainable design</p>
+                </div>
+
+                <div class="property-card">
+                    <h3>Target Markets</h3>
+                    <p style="margin-bottom: 1rem;"><strong>Geographic Focus:</strong></p>
+                    <p>Major German cities<br>
+                    UNESCO heritage sites<br>
+                    Transit-oriented locations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bulwark-details">
+        <div class="section-container">
+            <h2>The Bulwark: Investment Highlights</h2>
+            
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🏛️</div>
+                    <h3>Prime Location</h3>
+                    <p>Exclusive position in Bremen's UNESCO World Heritage old town, walking distance from the city center.</p>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-icon">📈</div>
+                    <h3>Market Opportunity</h3>
+                    <p>Significant undersupply in the residential segment creates strong demand fundamentals.</p>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-icon">🔄</div>
+                    <h3>Conversion Potential</h3>
+                    <p>Flexible repositioning opportunities with no heritage restrictions.</p>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-icon">💎</div>
+                    <h3>Value Creation</h3>
+                    <p>Strategic repositioning unlocks significant appreciation through quality development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="investment">
+        <div class="section-container">
             <h2>Property Details</h2>
-            <table>
-                <tr>
-                    <th>Building</th>
-                    <th>Construction Year</th>
-                    <th>Plot Size</th>
-                    <th>Rentable Area</th>
-                    <th>Floors</th>
-                </tr>
-                <tr>
-                    <td>Am Wall 117-118</td>
-                    <td>1957</td>
-                    <td>329 m²</td>
-                    <td>907 m²</td>
-                    <td>Basement - 4 Floors</td>
-                </tr>
-                <tr>
-                    <td>Am Wall 119</td>
-                    <td>1950</td>
-                    <td>220 m²</td>
-                    <td>865 m²</td>
-                    <td>Basement - 4 Floors</td>
-                </tr>
-                <tr>
-                    <td>Am Wall 121-125</td>
-                    <td>1986/1990</td>
-                    <td>2,168 m²</td>
-                    <td>10,386 m²</td>
-                    <td>3 UG - 6 Floors</td>
-                </tr>
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td>-</td>
-                    <td><strong>2,717 m²</strong></td>
-                    <td><strong>12,158 m²</strong></td>
-                    <td>-</td>
-                </tr>
-            </table>
-        </section>
-
-        <section class="section">
-            <h2>Leadership Team</h2>
-            <p>Urban Asset Management brings together experienced professionals with deep expertise in real estate development, construction management, and urban regeneration across Germany.</p>
             
-            <div class="team">
-                <div class="team-member">
-                    <img src="image.jpg" alt="Zeynel Gundog" class="team-photo">
-                    <h3>Zeynel Gundog</h3>
-                    <p><strong>MANAGING DIRECTOR</strong></p>
-                    <p>Leading UAM's strategic vision and development pipeline. Extensive experience in German real estate markets with focus on urban residential conversions and value creation through strategic repositioning.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Building</th>
+                        <th>Construction Year</th>
+                        <th>Plot Size</th>
+                        <th>Rentable Area</th>
+                        <th>Floors</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Am Wall 117-118</td>
+                        <td>1957</td>
+                        <td>329 m²</td>
+                        <td>907 m²</td>
+                        <td>Basement - 4 Floors</td>
+                    </tr>
+                    <tr>
+                        <td>Am Wall 119</td>
+                        <td>1950</td>
+                        <td>220 m²</td>
+                        <td>865 m²</td>
+                        <td>Basement - 4 Floors</td>
+                    </tr>
+                    <tr>
+                        <td>Am Wall 121-125</td>
+                        <td>1986/1990</td>
+                        <td>2,168 m²</td>
+                        <td>10,386 m²</td>
+                        <td>3 UG - 6 Floors</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td></td>
+                        <td><strong>2,717 m²</strong></td>
+                        <td><strong>12,158 m²</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 style="margin-top: 5rem;">The Bulwark Specifications</h2>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Location</td>
+                        <td>Am Wall 117-125, Bremen Old Town</td>
+                    </tr>
+                    <tr>
+                        <td>UNESCO Status</td>
+                        <td>World Heritage Area</td>
+                    </tr>
+                    <tr>
+                        <td>Development Type</td>
+                        <td>Office to Residential Conversion</td>
+                    </tr>
+                    <tr>
+                        <td>Buildings</td>
+                        <td>Three interconnected structures</td>
+                    </tr>
+                    <tr>
+                        <td>Construction Era</td>
+                        <td>1950s - 1990s</td>
+                    </tr>
+                    <tr>
+                        <td>Amenities</td>
+                        <td>Underground parking, modern facilities</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <div class="section-container">
+            <h2>Development Approach</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Acquisition</h3>
+                        <p>Securing strategic urban properties with strong conversion potential and prime locations.</p>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <h3>Steffen Sendler</h3>
-                    <p><strong>PROJECT MANAGER</strong></p>
-                    <p>Overseeing construction execution and project delivery. Specialized in complex urban conversions with proven track record in historic building repositioning and modern residential development.</p>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Planning & Permits</h3>
+                        <p>Comprehensive development planning and securing all necessary approvals.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Construction</h3>
+                        <p>Quality execution transforming properties into modern residential communities.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Completion & Delivery</h3>
+                        <p>Professional handover and community establishment with quality residents.</p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section contact">
-            <h2>Contact</h2>
-            <div class="stats">
-                <div class="stat">
-                    <h3>Urban Asset Management</h3>
-                    <p>Violenstraße 10<br>
-                    28195 Bremen<br>
-                    Germany</p>
+    <section id="team">
+        <div class="section-container">
+            <h2>Leadership Team</h2>
+            <p class="section-intro">
+                Urban Asset Management brings together experienced professionals with deep expertise 
+                in real estate development, construction management, and urban regeneration across Germany.
+            </p>
+
+            <div class="property-grid">
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="zeynel-gundog-headshot.jpg?v=2" alt="Zeynel Gundog" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="team-info">
+                        <h3>Zeynel Gundog</h3>
+                        <div class="stat-label" style="margin-bottom: 1rem;">Managing Director</div>
+                        <p>Leading UAM's strategic vision and development pipeline. Extensive experience in 
+                        German real estate markets with focus on urban residential conversions and value creation 
+                        through strategic repositioning.</p>
+                    </div>
                 </div>
-                <div class="stat">
-                    <h3>Managing Director</h3>
-                    <p>Zeynel Gundog<br>
+
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="steffen-sendler-headshot.jpg?v=2" alt="Steffen Sendler" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="team-info">
+                        <h3>Steffen Sendler</h3>
+                        <div class="stat-label" style="margin-bottom: 1rem;">Project Manager</div>
+                        <p>Overseeing construction execution and project delivery. Specialized in complex urban 
+                        conversions with proven track record in historic building repositioning and modern 
+                        residential development.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 5rem;">Our Expertise</h2>
+            
+            <div class="highlights-grid" style="margin-top: 3rem;">
+                <div class="highlight-item" style="text-align: left; color: #666;">
+                    <div class="highlight-icon" style="text-align: center;">🏗️</div>
+                    <h3 style="color: #1a1a1a;">Development</h3>
+                    <p>Ground-up construction and comprehensive conversion projects with focus on quality and sustainability.</p>
+                </div>
+
+                <div class="highlight-item" style="text-align: left; color: #666;">
+                    <div class="highlight-icon" style="text-align: center;">📋</div>
+                    <h3 style="color: #1a1a1a;">Project Management</h3>
+                    <p>End-to-end oversight from acquisition through completion, ensuring on-time and on-budget delivery.</p>
+                </div>
+
+                <div class="highlight-item" style="text-align: left; color: #666;">
+                    <div class="highlight-icon" style="text-align: center;">🏛️</div>
+                    <h3 style="color: #1a1a1a;">Historic Preservation</h3>
+                    <p>Specialized expertise in UNESCO heritage sites and sensitive urban regeneration projects.</p>
+                </div>
+
+                <div class="highlight-item" style="text-align: left; color: #666;">
+                    <div class="highlight-icon" style="text-align: center;">🎯</div>
+                    <h3 style="color: #1a1a1a;">Asset Management</h3>
+                    <p>Strategic property management and value optimization throughout the development lifecycle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="section-container">
+            <h2>Invest in Urban Transformation</h2>
+            <p class="section-intro">
+                Urban Asset Management is building a portfolio of exceptional residential developments 
+                in Germany's most attractive urban markets. Join us in creating vibrant communities 
+                while delivering superior risk-adjusted returns.
+            </p>
+            <a href="#contact" class="cta-button">REQUEST INVESTMENT INFORMATION</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Urban Asset Management</h4>
+                <p>Violenstraße 10<br>28195 Bremen<br>Germany</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>
+                    Zeynel Gundog<br>
+                    Managing Director<br>
                     <a href="tel:+4915231302102">+49 152 31302102</a><br>
-                    <a href="mailto:info@urbanassetmanagement.de">info@urbanassetmanagement.de</a></p>
-                </div>
-                <div class="stat">
-                    <h3>Project Manager</h3>
-                    <p>Steffen Sendler<br>
-                    <a href="tel:+491601461616">+49 160 1461616</a></p>
-                </div>
+                    <a href="mailto:info@urbanassetmanagement.de">info@urbanassetmanagement.de</a>
+                </p>
             </div>
-        </section>
-    </main>
 
-    <footer class="footer">
-        <div class="container">
+            <div class="footer-section">
+                <h4>Project Management</h4>
+                <p>
+                    Steffen Sendler<br>
+                    Project Manager<br>
+                    <a href="tel:+491601461616">+49 160 1461616</a>
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#overview">About UAM</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#approach">Our Approach</a>
+                <a href="#bulwark-details">The Bulwark Project</a>
+                <a href="https://www.urbanassetmanagement.de">Website</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
             <p>&copy; 2025 Urban Asset Management GmbH. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
